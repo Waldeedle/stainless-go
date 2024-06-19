@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/waldeedle-go
+module github.com/undefined/stainless-go
 
 go 1.19
 

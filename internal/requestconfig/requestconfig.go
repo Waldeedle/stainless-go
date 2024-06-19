@@ -17,10 +17,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/waldeedle-go/internal"
-	"github.com/stainless-sdks/waldeedle-go/internal/apierror"
-	"github.com/stainless-sdks/waldeedle-go/internal/apiform"
-	"github.com/stainless-sdks/waldeedle-go/internal/apiquery"
+	"github.com/undefined/stainless-go/internal"
+	"github.com/undefined/stainless-go/internal/apierror"
+	"github.com/undefined/stainless-go/internal/apiform"
+	"github.com/undefined/stainless-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

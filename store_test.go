@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/waldeedle-go"
-	"github.com/stainless-sdks/waldeedle-go/internal/testutil"
-	"github.com/stainless-sdks/waldeedle-go/option"
-	"github.com/stainless-sdks/waldeedle-go/shared"
+	"github.com/undefined/stainless-go"
+	"github.com/undefined/stainless-go/internal/testutil"
+	"github.com/undefined/stainless-go/option"
+	"github.com/undefined/stainless-go/shared"
 )
 
 func TestStoreNewOrderWithOptionalParams(t *testing.T) {
