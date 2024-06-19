@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/undefined/stainless-go"
-	"github.com/undefined/stainless-go/internal"
-	"github.com/undefined/stainless-go/option"
+	"github.com/Waldeedle/stainless-go"
+	"github.com/Waldeedle/stainless-go/internal"
+	"github.com/Waldeedle/stainless-go/option"
 )
 
 type closureTransport struct {
