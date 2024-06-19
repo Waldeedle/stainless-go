@@ -3,8 +3,8 @@
 package waldeedle
 
 import (
-	"github.com/undefined/stainless-go/internal/apierror"
-	"github.com/undefined/stainless-go/shared"
+	"github.com/Waldeedle/stainless-go/internal/apierror"
+	"github.com/Waldeedle/stainless-go/shared"
 )
 
 type Error = apierror.Error
