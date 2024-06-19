@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/undefined/stainless-go/internal/apijson"
-	"github.com/undefined/stainless-go/internal/apiquery"
-	"github.com/undefined/stainless-go/internal/param"
-	"github.com/undefined/stainless-go/internal/requestconfig"
-	"github.com/undefined/stainless-go/option"
+	"github.com/Waldeedle/stainless-go/internal/apijson"
+	"github.com/Waldeedle/stainless-go/internal/apiquery"
+	"github.com/Waldeedle/stainless-go/internal/param"
+	"github.com/Waldeedle/stainless-go/internal/requestconfig"
+	"github.com/Waldeedle/stainless-go/option"
 )
 
 // UserService contains methods and other services that help with interacting with

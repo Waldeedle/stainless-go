@@ -11,15 +11,15 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/Waldeedle/stainless-go/internal/requestconfig"
 	"github.com/tidwall/sjson"
-	"github.com/undefined/stainless-go/internal/requestconfig"
 )
 
 // RequestOption is an option for the requests made by the petstore API Client
 // which can be supplied to clients, services, and methods. You can read more about this functional
 // options pattern in our [README].
 //
-// [README]: https://pkg.go.dev/github.com/undefined/stainless-go#readme-requestoptions
+// [README]: https://pkg.go.dev/github.com/Waldeedle/stainless-go#readme-requestoptions
 type RequestOption = func(*requestconfig.RequestConfig) error
 
 // WithBaseURL returns a RequestOption that sets the BaseURL for the client.
