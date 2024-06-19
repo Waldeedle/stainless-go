@@ -11,12 +11,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/stainless-sdks/waldeedle-go/internal/apiform"
-	"github.com/stainless-sdks/waldeedle-go/internal/apijson"
-	"github.com/stainless-sdks/waldeedle-go/internal/apiquery"
-	"github.com/stainless-sdks/waldeedle-go/internal/param"
-	"github.com/stainless-sdks/waldeedle-go/internal/requestconfig"
-	"github.com/stainless-sdks/waldeedle-go/option"
+	"github.com/undefined/stainless-go/internal/apiform"
+	"github.com/undefined/stainless-go/internal/apijson"
+	"github.com/undefined/stainless-go/internal/apiquery"
+	"github.com/undefined/stainless-go/internal/param"
+	"github.com/undefined/stainless-go/internal/requestconfig"
+	"github.com/undefined/stainless-go/option"
 )
 
 // PetService contains methods and other services that help with interacting with

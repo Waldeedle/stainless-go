@@ -12,7 +12,7 @@ import (
 
 	"github.com/tidwall/sjson"
 
-	"github.com/stainless-sdks/waldeedle-go/internal/param"
+	"github.com/undefined/stainless-go/internal/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

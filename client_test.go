@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/waldeedle-go"
-	"github.com/stainless-sdks/waldeedle-go/internal"
-	"github.com/stainless-sdks/waldeedle-go/option"
+	"github.com/undefined/stainless-go"
+	"github.com/undefined/stainless-go/internal"
+	"github.com/undefined/stainless-go/option"
 )
 
 type closureTransport struct {

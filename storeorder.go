@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/stainless-sdks/waldeedle-go/internal/requestconfig"
-	"github.com/stainless-sdks/waldeedle-go/option"
-	"github.com/stainless-sdks/waldeedle-go/shared"
+	"github.com/undefined/stainless-go/internal/requestconfig"
+	"github.com/undefined/stainless-go/option"
+	"github.com/undefined/stainless-go/shared"
 )
 
 // StoreOrderService contains methods and other services that help with interacting

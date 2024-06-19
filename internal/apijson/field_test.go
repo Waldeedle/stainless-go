@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/waldeedle-go/internal/param"
+	"github.com/undefined/stainless-go/internal/param"
 )
 
 type Struct struct {

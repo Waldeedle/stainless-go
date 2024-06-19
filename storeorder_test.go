@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/waldeedle-go"
-	"github.com/stainless-sdks/waldeedle-go/internal/testutil"
-	"github.com/stainless-sdks/waldeedle-go/option"
+	"github.com/undefined/stainless-go"
+	"github.com/undefined/stainless-go/internal/testutil"
+	"github.com/undefined/stainless-go/option"
 )
 
 func TestStoreOrderGet(t *testing.T) {

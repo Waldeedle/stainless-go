@@ -34,7 +34,7 @@ To use a local version of this library from source in another project, edit the 
 directive. This can be done through the CLI with the following:
 
 ```bash
-go mod edit -replace github.com/stainless-sdks/waldeedle-go=/path/to/waldeedle-go
+go mod edit -replace github.com/undefined/stainless-go=/path/to/stainless-go
 ```
 
 ## Running tests
