@@ -39,19 +39,41 @@ type DateTime struct {
 }
 
 type AdditionalProperties struct {
-	A      bool                   `json:"a"`
-	Extras map[string]interface{} `json:"-,extras"`
+	A           bool                   `json:"a"`
+	ExtraFields map[string]interface{} `json:"-,extras"`
 }
 
 type TypedAdditionalProperties struct {
-	A      bool           `json:"a"`
-	Extras map[string]int `json:"-,extras"`
+	A           bool           `json:"a"`
+	ExtraFields map[string]int `json:"-,extras"`
+}
+
+type EmbeddedStruct struct {
+	A bool   `json:"a"`
+	B string `json:"b"`
+
+	JSON EmbeddedStructJSON
+}
+
+type EmbeddedStructJSON struct {
+	A           Field
+	B           Field
+	ExtraFields map[string]Field
+	raw         string
 }
 
 type EmbeddedStructs struct {
-	AdditionalProperties
-	A      *int                   `json:"number2"`
-	Extras map[string]interface{} `json:"-,extras"`
+	EmbeddedStruct
+	A           *int                   `json:"a"`
+	ExtraFields map[string]interface{} `json:"-,extras"`
+
+	JSON EmbeddedStructsJSON
+}
+
+type EmbeddedStructsJSON struct {
+	A           Field
+	ExtraFields map[string]Field
+	raw         string
 }
 
 type Recursive struct {
@@ -60,21 +82,21 @@ type Recursive struct {
 }
 
 type JSONFieldStruct struct {
-	A      bool                `json:"a"`
-	B      int64               `json:"b"`
-	C      string              `json:"c"`
-	D      string              `json:"d"`
-	Extras map[string]int64    `json:"-,extras"`
-	JSON   JSONFieldStructJSON `json:"-,metadata"`
+	A           bool                `json:"a"`
+	B           int64               `json:"b"`
+	C           string              `json:"c"`
+	D           string              `json:"d"`
+	ExtraFields map[string]int64    `json:"-,extras"`
+	JSON        JSONFieldStructJSON `json:"-,metadata"`
 }
 
 type JSONFieldStructJSON struct {
-	A      Field
-	B      Field
-	C      Field
-	D      Field
-	Extras map[string]Field
-	raw    string
+	A           Field
+	B           Field
+	C           Field
+	D           Field
+	ExtraFields map[string]Field
+	raw         string
 }
 
 type UnknownStruct struct {
@@ -239,6 +261,59 @@ func init() {
 	)
 }
 
+type MarshallingUnionStruct struct {
+	Union MarshallingUnion
+}
+
+func (r *MarshallingUnionStruct) UnmarshalJSON(data []byte) (err error) {
+	*r = MarshallingUnionStruct{}
+	err = UnmarshalRoot(data, &r.Union)
+	return
+}
+
+func (r MarshallingUnionStruct) MarshalJSON() (data []byte, err error) {
+	return MarshalRoot(r.Union)
+}
+
+type MarshallingUnion interface {
+	marshallingUnion()
+}
+
+type MarshallingUnionA struct {
+	Boo string `json:"boo"`
+}
+
+func (MarshallingUnionA) marshallingUnion() {}
+
+func (r *MarshallingUnionA) UnmarshalJSON(data []byte) (err error) {
+	return UnmarshalRoot(data, r)
+}
+
+type MarshallingUnionB struct {
+	Foo string `json:"foo"`
+}
+
+func (MarshallingUnionB) marshallingUnion() {}
+
+func (r *MarshallingUnionB) UnmarshalJSON(data []byte) (err error) {
+	return UnmarshalRoot(data, r)
+}
+
+func init() {
+	RegisterUnion(
+		reflect.TypeOf((*MarshallingUnion)(nil)).Elem(),
+		"",
+		UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(MarshallingUnionA{}),
+		},
+		UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(MarshallingUnionB{}),
+		},
+	)
+}
+
 var tests = map[string]struct {
 	buf string
 	val interface{}
@@ -286,8 +361,9 @@ var tests = map[string]struct {
 	"date_time_missing_timezone_colon_coerce": {`"2007-03-01T13:03:05-1200"`, time.Date(2007, time.March, 1, 13, 3, 5, 0, time.FixedZone("", -12*60*60))},
 	"date_time_nano_missing_t_coerce":         {`"2007-03-01 13:03:05.123456789Z"`, time.Date(2007, time.March, 1, 13, 3, 5, 123456789, time.UTC)},
 
-	"map_string":    {`{"foo":"bar"}`, map[string]string{"foo": "bar"}},
-	"map_interface": {`{"a":1,"b":"str","c":false}`, map[string]interface{}{"a": float64(1), "b": "str", "c": false}},
+	"map_string":                       {`{"foo":"bar"}`, map[string]string{"foo": "bar"}},
+	"map_string_with_sjson_path_chars": {`{":a.b.c*:d*-1e.f":"bar"}`, map[string]string{":a.b.c*:d*-1e.f": "bar"}},
+	"map_interface":                    {`{"a":1,"b":"str","c":false}`, map[string]interface{}{"a": float64(1), "b": "str", "c": false}},
 
 	"primitive_struct": {
 		`{"a":false,"b":237628372683,"c":654,"d":9999.43,"e":43.76,"f":[1,2,3,4]}`,
@@ -325,9 +401,33 @@ var tests = map[string]struct {
 		`{"a":true,"bar":"value","foo":true}`,
 		AdditionalProperties{
 			A: true,
-			Extras: map[string]interface{}{
+			ExtraFields: map[string]interface{}{
 				"bar": "value",
 				"foo": true,
+			},
+		},
+	},
+
+	"embedded_struct": {
+		`{"a":1,"b":"bar"}`,
+		EmbeddedStructs{
+			EmbeddedStruct: EmbeddedStruct{
+				A: true,
+				B: "bar",
+				JSON: EmbeddedStructJSON{
+					A:   Field{raw: `1`, status: valid},
+					B:   Field{raw: `"bar"`, status: valid},
+					raw: `{"a":1,"b":"bar"}`,
+				},
+			},
+			A:           P(1),
+			ExtraFields: map[string]interface{}{"b": "bar"},
+			JSON: EmbeddedStructsJSON{
+				A: Field{raw: `1`, status: valid},
+				ExtraFields: map[string]Field{
+					"b": {raw: `"bar"`, status: valid},
+				},
+				raw: `{"a":1,"b":"bar"}`,
 			},
 		},
 	},
@@ -349,7 +449,7 @@ var tests = map[string]struct {
 				B:   Field{raw: `"12"`, status: valid},
 				C:   Field{raw: "null", status: null},
 				D:   Field{raw: "", status: missing},
-				Extras: map[string]Field{
+				ExtraFields: map[string]Field{
 					"extra_typed": {
 						raw:    "12",
 						status: valid,
@@ -360,7 +460,7 @@ var tests = map[string]struct {
 					},
 				},
 			},
-			Extras: map[string]int64{
+			ExtraFields: map[string]int64{
 				"extra_typed":   12,
 				"extra_untyped": 0,
 			},
@@ -441,6 +541,15 @@ var tests = map[string]struct {
 	"complex_union_type_b": {
 		`{"union":{"baz":12,"type":"b"}}`,
 		ComplexUnionStruct{Union: ComplexUnionTypeB{Baz: 12, Type: TypeB("b")}},
+	},
+
+	"marshalling_union_a": {
+		`{"boo":"hello"}`,
+		MarshallingUnionStruct{Union: MarshallingUnionA{Boo: "hello"}},
+	},
+	"marshalling_union_b": {
+		`{"foo":"hi"}`,
+		MarshallingUnionStruct{Union: MarshallingUnionB{Foo: "hi"}},
 	},
 
 	"unmarshal": {
