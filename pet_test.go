@@ -29,24 +29,24 @@ func TestPetNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Pets.New(context.TODO(), waldeedle.PetNewParams{
 		Pet: waldeedle.PetParam{
-			ID:   waldeedle.F(int64(10)),
-			Name: waldeedle.F("doggie"),
+			Name:      waldeedle.F("doggie"),
+			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			ID:        waldeedle.F(int64(10)),
 			Category: waldeedle.F(waldeedle.PetCategoryParam{
 				ID:   waldeedle.F(int64(1)),
 				Name: waldeedle.F("Dogs"),
 			}),
-			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 			Tags: waldeedle.F([]waldeedle.PetTagParam{{
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}, {
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}, {
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}}),
-			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 		},
 	})
 	if err != nil {
@@ -94,24 +94,24 @@ func TestPetUpdateWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Pets.Update(context.TODO(), waldeedle.PetUpdateParams{
 		Pet: waldeedle.PetParam{
-			ID:   waldeedle.F(int64(10)),
-			Name: waldeedle.F("doggie"),
+			Name:      waldeedle.F("doggie"),
+			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			ID:        waldeedle.F(int64(10)),
 			Category: waldeedle.F(waldeedle.PetCategoryParam{
 				ID:   waldeedle.F(int64(1)),
 				Name: waldeedle.F("Dogs"),
 			}),
-			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 			Tags: waldeedle.F([]waldeedle.PetTagParam{{
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}, {
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}, {
 				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("string"),
+				Name: waldeedle.F("name"),
 			}}),
-			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 		},
 	})
 	if err != nil {
@@ -209,8 +209,8 @@ func TestPetUpdateByIDWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		int64(0),
 		waldeedle.PetUpdateByIDParams{
-			Name:   waldeedle.F("string"),
-			Status: waldeedle.F("string"),
+			Name:   waldeedle.F("name"),
+			Status: waldeedle.F("status"),
 		},
 	)
 	if err != nil {
@@ -239,7 +239,7 @@ func TestPetUploadImageWithOptionalParams(t *testing.T) {
 		int64(0),
 		waldeedle.PetUploadImageParams{
 			Image:              io.Reader(bytes.NewBuffer([]byte("some file contents"))),
-			AdditionalMetadata: waldeedle.F("string"),
+			AdditionalMetadata: waldeedle.F("additionalMetadata"),
 		},
 	)
 	if err != nil {
