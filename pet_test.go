@@ -30,7 +30,7 @@ func TestPetNewWithOptionalParams(t *testing.T) {
 	_, err := client.Pets.New(context.TODO(), waldeedle.PetNewParams{
 		Pet: waldeedle.PetParam{
 			Name:      waldeedle.F("doggie"),
-			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			PhotoURLs: waldeedle.F([]string{"string"}),
 			ID:        waldeedle.F(int64(10)),
 			Category: waldeedle.F(waldeedle.PetCategoryParam{
 				ID:   waldeedle.F(int64(1)),
@@ -38,12 +38,6 @@ func TestPetNewWithOptionalParams(t *testing.T) {
 			}),
 			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 			Tags: waldeedle.F([]waldeedle.PetTagParam{{
-				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("name"),
-			}, {
-				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("name"),
-			}, {
 				ID:   waldeedle.F(int64(0)),
 				Name: waldeedle.F("name"),
 			}}),
@@ -95,7 +89,7 @@ func TestPetUpdateWithOptionalParams(t *testing.T) {
 	_, err := client.Pets.Update(context.TODO(), waldeedle.PetUpdateParams{
 		Pet: waldeedle.PetParam{
 			Name:      waldeedle.F("doggie"),
-			PhotoURLs: waldeedle.F([]string{"string", "string", "string"}),
+			PhotoURLs: waldeedle.F([]string{"string"}),
 			ID:        waldeedle.F(int64(10)),
 			Category: waldeedle.F(waldeedle.PetCategoryParam{
 				ID:   waldeedle.F(int64(1)),
@@ -103,12 +97,6 @@ func TestPetUpdateWithOptionalParams(t *testing.T) {
 			}),
 			Status: waldeedle.F(waldeedle.PetStatusAvailable),
 			Tags: waldeedle.F([]waldeedle.PetTagParam{{
-				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("name"),
-			}, {
-				ID:   waldeedle.F(int64(0)),
-				Name: waldeedle.F("name"),
-			}, {
 				ID:   waldeedle.F(int64(0)),
 				Name: waldeedle.F("name"),
 			}}),
@@ -182,7 +170,7 @@ func TestPetFindByTagsWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Pets.FindByTags(context.TODO(), waldeedle.PetFindByTagsParams{
-		Tags: waldeedle.F([]string{"string", "string", "string"}),
+		Tags: waldeedle.F([]string{"string"}),
 	})
 	if err != nil {
 		var apierr *waldeedle.Error

@@ -149,24 +149,6 @@ func TestUserNewWithList(t *testing.T) {
 			Phone:      waldeedle.F("12345"),
 			Username:   waldeedle.F("theUser"),
 			UserStatus: waldeedle.F(int64(1)),
-		}, {
-			ID:         waldeedle.F(int64(10)),
-			Email:      waldeedle.F("john@email.com"),
-			FirstName:  waldeedle.F("John"),
-			LastName:   waldeedle.F("James"),
-			Password:   waldeedle.F("12345"),
-			Phone:      waldeedle.F("12345"),
-			Username:   waldeedle.F("theUser"),
-			UserStatus: waldeedle.F(int64(1)),
-		}, {
-			ID:         waldeedle.F(int64(10)),
-			Email:      waldeedle.F("john@email.com"),
-			FirstName:  waldeedle.F("John"),
-			LastName:   waldeedle.F("James"),
-			Password:   waldeedle.F("12345"),
-			Phone:      waldeedle.F("12345"),
-			Username:   waldeedle.F("theUser"),
-			UserStatus: waldeedle.F(int64(1)),
 		}},
 	})
 	if err != nil {
