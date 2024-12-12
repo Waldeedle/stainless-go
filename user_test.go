@@ -25,7 +25,7 @@ func TestUserNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.User.New(context.TODO(), waldeedle.UserNewParams{
+	_, err := client.User.New(context.TODO(), waldeedle.UserNewParams{
 		User: waldeedle.UserParam{
 			ID:         waldeedle.F(int64(10)),
 			Email:      waldeedle.F("john@email.com"),
