@@ -25,15 +25,15 @@ func TestUserNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.User.New(context.TODO(), waldeedle.UserNewParams{
+	_, err := client.User.New(context.TODO(), waldeedle.UserNewParams{
 		User: waldeedle.UserParam{
 			ID:         waldeedle.F(int64(10)),
-			Username:   waldeedle.F("theUser"),
+			Email:      waldeedle.F("john@email.com"),
 			FirstName:  waldeedle.F("John"),
 			LastName:   waldeedle.F("James"),
-			Email:      waldeedle.F("john@email.com"),
 			Password:   waldeedle.F("12345"),
 			Phone:      waldeedle.F("12345"),
+			Username:   waldeedle.F("theUser"),
 			UserStatus: waldeedle.F(int64(1)),
 		},
 	})
@@ -58,7 +58,7 @@ func TestUserGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.User.Get(context.TODO(), "string")
+	_, err := client.User.Get(context.TODO(), "username")
 	if err != nil {
 		var apierr *waldeedle.Error
 		if errors.As(err, &apierr) {
@@ -82,16 +82,16 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 	)
 	err := client.User.Update(
 		context.TODO(),
-		"string",
+		"username",
 		waldeedle.UserUpdateParams{
 			User: waldeedle.UserParam{
 				ID:         waldeedle.F(int64(10)),
-				Username:   waldeedle.F("theUser"),
+				Email:      waldeedle.F("john@email.com"),
 				FirstName:  waldeedle.F("John"),
 				LastName:   waldeedle.F("James"),
-				Email:      waldeedle.F("john@email.com"),
 				Password:   waldeedle.F("12345"),
 				Phone:      waldeedle.F("12345"),
+				Username:   waldeedle.F("theUser"),
 				UserStatus: waldeedle.F(int64(1)),
 			},
 		},
@@ -117,7 +117,7 @@ func TestUserDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.User.Delete(context.TODO(), "string")
+	err := client.User.Delete(context.TODO(), "username")
 	if err != nil {
 		var apierr *waldeedle.Error
 		if errors.As(err, &apierr) {
@@ -142,30 +142,12 @@ func TestUserNewWithList(t *testing.T) {
 	_, err := client.User.NewWithList(context.TODO(), waldeedle.UserNewWithListParams{
 		Items: []waldeedle.UserParam{{
 			ID:         waldeedle.F(int64(10)),
-			Username:   waldeedle.F("theUser"),
+			Email:      waldeedle.F("john@email.com"),
 			FirstName:  waldeedle.F("John"),
 			LastName:   waldeedle.F("James"),
-			Email:      waldeedle.F("john@email.com"),
 			Password:   waldeedle.F("12345"),
 			Phone:      waldeedle.F("12345"),
-			UserStatus: waldeedle.F(int64(1)),
-		}, {
-			ID:         waldeedle.F(int64(10)),
 			Username:   waldeedle.F("theUser"),
-			FirstName:  waldeedle.F("John"),
-			LastName:   waldeedle.F("James"),
-			Email:      waldeedle.F("john@email.com"),
-			Password:   waldeedle.F("12345"),
-			Phone:      waldeedle.F("12345"),
-			UserStatus: waldeedle.F(int64(1)),
-		}, {
-			ID:         waldeedle.F(int64(10)),
-			Username:   waldeedle.F("theUser"),
-			FirstName:  waldeedle.F("John"),
-			LastName:   waldeedle.F("James"),
-			Email:      waldeedle.F("john@email.com"),
-			Password:   waldeedle.F("12345"),
-			Phone:      waldeedle.F("12345"),
 			UserStatus: waldeedle.F(int64(1)),
 		}},
 	})
@@ -191,8 +173,8 @@ func TestUserLoginWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.User.Login(context.TODO(), waldeedle.UserLoginParams{
-		Password: waldeedle.F("string"),
-		Username: waldeedle.F("string"),
+		Password: waldeedle.F("password"),
+		Username: waldeedle.F("username"),
 	})
 	if err != nil {
 		var apierr *waldeedle.Error

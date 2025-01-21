@@ -30,11 +30,11 @@ func TestStoreNewOrderWithOptionalParams(t *testing.T) {
 	_, err := client.Store.NewOrder(context.TODO(), waldeedle.StoreNewOrderParams{
 		Order: shared.OrderParam{
 			ID:       waldeedle.F(int64(10)),
+			Complete: waldeedle.F(true),
 			PetID:    waldeedle.F(int64(198772)),
 			Quantity: waldeedle.F(int64(7)),
 			ShipDate: waldeedle.F(time.Now()),
-			Status:   waldeedle.F(shared.OrderStatusApproved),
-			Complete: waldeedle.F(true),
+			Status:   waldeedle.F(shared.OrderStatusPlaced),
 		},
 	})
 	if err != nil {
